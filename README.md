@@ -1,5 +1,5 @@
 # MetalExtensions
-Useful extensions for working with Apple Metal API in Swift.
+Useful extensions for working with Apple Metal API in Swift 5.1.
 
 Supported platforms: macOS 10.13+, iOS 11+.
 
