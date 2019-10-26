@@ -1,9 +1,9 @@
 //
 //  MTLSize+ExtensionsTests.swift
-//  ArtOverflowTests
+//  MetalExtensionsTests
 //
 //  Created by Ceylo on 22/06/2019.
-//  Copyright © 2019 Yalir. All rights reserved.
+//  Copyright © 2019 Yalir. This code is licensed under MIT license (see LICENSE for details).
 //
 
 import XCTest
