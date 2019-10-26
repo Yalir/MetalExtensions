@@ -20,7 +20,7 @@ public extension SIMD2 where Scalar == Float {
     }
 }
 
-extension SIMD2 where Scalar == UInt32 {
+public extension SIMD2 where Scalar == UInt32 {
     init(_ origin: MTLOrigin) {
         self.init(UInt32(origin.x), UInt32(origin.y))
     }
