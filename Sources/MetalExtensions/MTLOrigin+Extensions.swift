@@ -25,6 +25,10 @@ public extension MTLOrigin {
         lhs.y += Int(rhs.dy)
     }
     
+    func translated(by offset: MTLVector) -> MTLOrigin {
+        MTLOrigin(x: x + offset.dx, y: y + offset.dy, z: z + offset.dz)
+    }
+    
     static let zero = MTLOrigin()
 }
 

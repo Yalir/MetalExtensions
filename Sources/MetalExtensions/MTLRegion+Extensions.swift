@@ -92,6 +92,19 @@ public extension MTLRegion {
     var isEmpty: Bool {
         return size.isEmpty
     }
+    
+    func translated(by offset: MTLVector) -> MTLRegion {
+        MTLRegion(origin: origin.translated(by: offset), size: size)
+    }
+    
+    func inflated(by offset: MTLVector) -> MTLRegion {
+        MTLRegion(origin: origin, size: size.inflated(by: offset))
+    }
+    
+    var left: Int { origin.x }
+    var right: Int { origin.x + size.width }
+    var bottom: Int { origin.y }
+    var top: Int { origin.y + size.height }
 }
 
 // MARK: - Equatable

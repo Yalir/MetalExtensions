@@ -25,6 +25,16 @@ public extension MTLSize {
     func contains(_ other: MTLSize) -> Bool {
         return width >= other.width && height >= other.height && depth >= other.depth
     }
+    
+    func inflated(by offset: MTLVector) -> MTLSize {
+        MTLSize(width: width + offset.dx, height: height + offset.dy, depth: depth + offset.dz)
+    }
+    
+    func clamped(to other: MTLSize) -> MTLSize {
+        MTLSize(width: min(width, other.width),
+                height: min(height, other.height),
+                depth: min(depth, other.depth))
+    }
 }
 
 // MARK: - Equatable
