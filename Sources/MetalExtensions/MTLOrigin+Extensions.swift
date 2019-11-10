@@ -14,10 +14,10 @@ public extension MTLOrigin {
         self.init(x: Int(point.x), y: Int(point.y), z: 0)
     }
     
-    static func -(lhs: MTLOrigin, rhs: MTLOrigin) -> MTLOrigin {
-        return MTLOrigin(x: lhs.x - rhs.x,
-                         y: lhs.y - rhs.y,
-                         z: lhs.z - rhs.z)
+    static func -(lhs: MTLOrigin, rhs: MTLOrigin) -> MTLVector {
+        return MTLVector(dx: lhs.x - rhs.x,
+                         dy: lhs.y - rhs.y,
+                         dz: lhs.z - rhs.z)
     }
     
     static func +=(lhs: inout MTLOrigin, rhs: CGVector) {
