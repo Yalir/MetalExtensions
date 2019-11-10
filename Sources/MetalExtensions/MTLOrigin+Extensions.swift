@@ -14,15 +14,20 @@ public extension MTLOrigin {
         self.init(x: Int(point.x), y: Int(point.y), z: 0)
     }
     
+    init(_ vector: MTLVector) {
+        self.init(x: vector.dx, y: vector.dy, z: vector.dz)
+    }
+    
     static func -(lhs: MTLOrigin, rhs: MTLOrigin) -> MTLVector {
         return MTLVector(dx: lhs.x - rhs.x,
                          dy: lhs.y - rhs.y,
                          dz: lhs.z - rhs.z)
     }
     
-    static func +=(lhs: inout MTLOrigin, rhs: CGVector) {
+    static func +=(lhs: inout MTLOrigin, rhs: MTLVector) {
         lhs.x += Int(rhs.dx)
         lhs.y += Int(rhs.dy)
+        lhs.z += Int(rhs.dz)
     }
     
     func translated(by offset: MTLVector) -> MTLOrigin {

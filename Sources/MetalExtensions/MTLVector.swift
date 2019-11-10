@@ -8,10 +8,12 @@
 
 import Foundation
 
-public struct MTLVector {
+public struct MTLVector: Equatable {
     public var dx: Int = 0
     public var dy: Int = 0
     public var dz: Int = 0
+    
+    static public var zero = MTLVector()
     
     public init(dx: Int = 0, dy: Int = 0, dz: Int = 0) {
         self.dx = dx
@@ -28,5 +30,13 @@ public struct MTLVector {
     
     public var isNull: Bool {
         dx == 0 && dy == 0 && dz == 0
+    }
+    
+    public var length: CGFloat {
+        CGFloat(dx*dx + dy*dy + dz*dz).squareRoot()
+    }
+    
+    static public prefix func -(vec: MTLVector) -> MTLVector {
+        MTLVector(dx: -vec.dx, dy: -vec.dy, dz: -vec.dz)
     }
 }
