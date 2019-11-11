@@ -39,4 +39,12 @@ public struct MTLVector: Equatable {
     static public prefix func -(vec: MTLVector) -> MTLVector {
         MTLVector(dx: -vec.dx, dy: -vec.dy, dz: -vec.dz)
     }
+    
+    static public func +(lhs: MTLVector, rhs: MTLVector) -> MTLVector {
+        MTLVector(dx: lhs.dx + rhs.dx, dy: lhs.dy + rhs.dy, dz: lhs.dz + rhs.dz)
+    }
+    
+    static public func +=(lhs: inout MTLVector, rhs: MTLVector) {
+        lhs = lhs + rhs
+    }
 }
