@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Metal
 
 public struct MTLVector: Equatable {
     public var dx: Int = 0
@@ -21,10 +22,12 @@ public struct MTLVector: Equatable {
         self.dz = dz
     }
     
+    public init(_ origin: MTLOrigin) {
+        self.init(dx: origin.x, dy: origin.y, dz: origin.z)
+    }
+    
     public init(vector: CGVector, residual: inout CGVector) {
-        dx = Int(vector.dx)
-        dy = Int(vector.dy)
-        
+        self.init(dx: Int(vector.dx), dy: Int(vector.dy))
         residual = CGVector(dx: vector.dx - CGFloat(dx), dy: vector.dy - CGFloat(dy))
     }
     
