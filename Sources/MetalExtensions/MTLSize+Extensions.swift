@@ -39,6 +39,12 @@ public extension MTLSize {
                 height: min(height, other.height),
                 depth: min(depth, other.depth))
     }
+    
+    static func /(lhs: MTLSize, rhs: Int) -> MTLSize {
+        return MTLSize(width: lhs.width / rhs,
+                       height: lhs.height / rhs,
+                       depth: lhs.depth / rhs)
+    }
 }
 
 // MARK: - Equatable

@@ -14,6 +14,10 @@ public extension MTLOrigin {
         self.init(x: Int(point.x), y: Int(point.y), z: 0)
     }
     
+    init(_ size: MTLSize) {
+        self.init(x: size.width, y: size.height, z: size.depth)
+    }
+    
     init(_ vector: MTLVector) {
         self.init(x: vector.dx, y: vector.dy, z: vector.dz)
     }
