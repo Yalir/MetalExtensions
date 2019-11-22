@@ -30,8 +30,16 @@ public extension MTLSize {
         MTLSize(width: width + offset.dx, height: height + offset.dy, depth: depth + offset.dz)
     }
     
+    func inflated(by offset: (Int, Int)) -> MTLSize {
+        inflated(by: MTLVector(dx: offset.0, dy: offset.1, dz: 0))
+    }
+    
     func deflated(by offset: MTLVector) -> MTLSize {
         MTLSize(width: width - offset.dx, height: height - offset.dy, depth: depth - offset.dz)
+    }
+    
+    func deflated(by offset: Int) -> MTLSize {
+        deflated(by: MTLVector((offset, offset)))
     }
     
     func clamped(to other: MTLSize) -> MTLSize {

@@ -14,6 +14,10 @@ public extension MTLOrigin {
         self.init(x: Int(point.x), y: Int(point.y), z: 0)
     }
     
+    init(_ origin: (Int, Int)) {
+        self.init(x: origin.0, y: origin.1, z: 0)
+    }
+    
     init(_ size: MTLSize) {
         self.init(x: size.width, y: size.height, z: size.depth)
     }
@@ -40,6 +44,10 @@ public extension MTLOrigin {
     
     func translated(by offset: MTLVector) -> MTLOrigin {
         self + offset
+    }
+    
+    func translated(by offset: (Int, Int)) -> MTLOrigin {
+        self.translated(by: MTLVector(dx: offset.0, dy: offset.1, dz: 0))
     }
     
     static let zero = MTLOrigin()

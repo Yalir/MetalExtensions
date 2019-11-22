@@ -16,6 +16,10 @@ public struct MTLVector: Equatable {
     
     static public var zero = MTLVector()
     
+    public init(_ vector: (Int, Int)) {
+        self.init(dx: vector.0, dy: vector.1, dz: 0)
+    }
+    
     public init(dx: Int = 0, dy: Int = 0, dz: Int = 0) {
         self.dx = dx
         self.dy = dy
@@ -50,4 +54,13 @@ public struct MTLVector: Equatable {
     static public func +=(lhs: inout MTLVector, rhs: MTLVector) {
         lhs = lhs + rhs
     }
+    
+    static public func /(lhs: MTLVector, rhs: Int) -> MTLVector {
+        MTLVector(dx: lhs.dx / rhs, dy: lhs.dy / rhs, dz: lhs.dz / rhs)
+    }
+    
+    static public func *(lhs: MTLVector, rhs: Int) -> MTLVector {
+        MTLVector(dx: lhs.dx * rhs, dy: lhs.dy * rhs, dz: lhs.dz * rhs)
+    }
+    static public func *(lhs: Int, rhs: MTLVector) -> MTLVector { rhs * lhs }
 }
