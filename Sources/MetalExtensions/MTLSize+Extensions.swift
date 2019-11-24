@@ -104,9 +104,9 @@ extension MTLSize: Codable {
 extension MTLSize: CustomStringConvertible {
     public var description: String {
         if depth == 1 {
-            return "(\(width) x \(height))"
+            return "\(width) x \(height)"
         } else {
-            return "(\(width) x \(height) x \(depth))"
+            return "\(width) x \(height) x \(depth)"
         }
     }
 }
