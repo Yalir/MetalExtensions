@@ -118,6 +118,32 @@ public extension MTLRegion {
     var right: Int { origin.x + size.width }
     var bottom: Int { origin.y }
     var top: Int { origin.y + size.height }
+    
+    func split(by size: MTLSize) -> [MTLRegion] {
+        precondition(size.depth == 1, "Split by size with depth \(size.depth) is not supported")
+        precondition(size.width > 0 && size.height > 0, "Can't split by a null size")
+        
+        let xParts = (self.size.width + size.width - 1) / size.width
+        let yParts = (self.size.height + size.height - 1) / size.height
+        
+        guard xParts > 1 || xParts > 1 else {
+            return [self]
+        }
+        
+        var subregions = [MTLRegion]()
+        for y in 0..<yParts {
+            for x in 0..<xParts {
+                let offset = MTLVector(dx: x * size.width, dy: y * size.height, dz: 0)
+                var subregion = MTLRegion(origin: self.origin + offset, size: size)
+                if x == xParts-1 || y == yParts-1 {
+                    subregion = subregion.intersection(self)!
+                }
+                subregions.append(subregion)
+            }
+        }
+        
+        return subregions
+    }
 }
 
 // MARK: - Equatable
