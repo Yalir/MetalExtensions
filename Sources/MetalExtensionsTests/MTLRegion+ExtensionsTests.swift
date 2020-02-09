@@ -155,12 +155,17 @@ class MTLRegion_ExtensionsTests: XCTestCase {
         
         // Split by size smaller than original region, last row is clamped
         XCTAssertEqual([MTLRegion((3, 5), (3, 5)), MTLRegion((6, 5), (3, 5)),
-                       MTLRegion((3, 10), (3, 2)), MTLRegion((6, 10), (3, 2))],
+                        MTLRegion((3, 10), (3, 2)), MTLRegion((6, 10), (3, 2))],
                        MTLRegion((3, 5), (6, 7)).split(by: MTLSize((3, 5))))
         
         XCTAssertEqual([
             MTLRegion((3, 5), (1, 1)), MTLRegion((4, 5), (1, 1)), MTLRegion((5, 5), (1, 1)),
             MTLRegion((3, 6), (1, 1)), MTLRegion((4, 6), (1, 1)), MTLRegion((5, 6), (1, 1))],
                        MTLRegion((3, 5), (3, 2)).split(by: MTLSize((1, 1))))
+        
+        XCTAssertEqual([
+            MTLRegion((1066, 400), (312, 512)),
+            MTLRegion((1066, 912), (312, 21))
+        ], MTLRegion((1066, 400), (312, 533)).split(by: MTLSize((512, 512))))
     }
 }

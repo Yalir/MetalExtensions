@@ -126,7 +126,7 @@ public extension MTLRegion {
         let xParts = (self.size.width + size.width - 1) / size.width
         let yParts = (self.size.height + size.height - 1) / size.height
         
-        guard xParts > 1 || xParts > 1 else {
+        guard xParts > 1 || yParts > 1 else {
             return [self]
         }
         
