@@ -28,4 +28,14 @@ public extension MTLCommandBuffer {
         closure(encoder)
         encoder.endEncoding()
     }
+    
+    func render(descriptor: MTLRenderPassDescriptor, label: String? = nil,
+                _ closure: (_ encoder: MTLRenderCommandEncoder) -> Void) {
+        let encoder = makeRenderCommandEncoder(descriptor: descriptor)!
+        if let label = label {
+            encoder.label = label
+        }
+        closure(encoder)
+        encoder.endEncoding()
+    }
 }
