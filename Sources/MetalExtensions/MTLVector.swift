@@ -6,7 +6,7 @@
 //  Copyright © 2019 Yalir. This code is licensed under MIT license (see LICENSE for details).
 //
 
-import Foundation
+import CoreGraphics
 import Metal
 
 public struct MTLVector: Equatable {
