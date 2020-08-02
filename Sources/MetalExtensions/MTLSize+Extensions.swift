@@ -14,10 +14,6 @@ public extension MTLSize {
         self.init(width: size.0, height: size.1, depth: 1)
     }
     
-    init(_ size: CGSize) {
-        self.init(width: Int(size.width), height: Int(size.height), depth: 1)
-    }
-    
     var isEmpty: Bool {
         return width <= 0 || height <= 0 || depth <= 0
     }
@@ -56,6 +52,17 @@ public extension MTLSize {
         return MTLSize(width: lhs.width / rhs,
                        height: lhs.height / rhs,
                        depth: lhs.depth / rhs)
+    }
+}
+
+// MARK: - CoreGraphics
+public extension MTLSize {
+    init(_ size: CGSize) {
+        self.init(width: Int(size.width), height: Int(size.height), depth: 1)
+    }
+    
+    var cgSize: CGSize {
+        CGSize(width: self.width, height: self.height)
     }
 }
 

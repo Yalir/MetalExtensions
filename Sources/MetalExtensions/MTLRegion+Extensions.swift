@@ -33,6 +33,10 @@ public extension MTLRegion {
     init(_ rect: CGRect) {
         self.init(origin: MTLOrigin(rect.origin), size: MTLSize(rect.size))
     }
+    
+    var cgRect: CGRect {
+        CGRect(origin: self.origin.cgPoint, size: self.size.cgSize)
+    }
 }
 
 // MARK: - Geometry helpers

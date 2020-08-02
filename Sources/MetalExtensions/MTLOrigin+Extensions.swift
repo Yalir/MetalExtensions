@@ -10,10 +10,6 @@ import Metal
 import CoreGraphics
 
 public extension MTLOrigin {
-    init(_ point: CGPoint) {
-        self.init(x: Int(point.x), y: Int(point.y), z: 0)
-    }
-    
     init(_ origin: (Int, Int)) {
         self.init(x: origin.0, y: origin.1, z: 0)
     }
@@ -51,6 +47,17 @@ public extension MTLOrigin {
     }
     
     static let zero = MTLOrigin()
+}
+
+// MARK: - CoreGraphics
+public extension MTLOrigin {
+    init(_ point: CGPoint) {
+        self.init(x: Int(point.x), y: Int(point.y), z: 0)
+    }
+    
+    var cgPoint: CGPoint {
+        CGPoint(x: self.x, y: self.y)
+    }
 }
 
 // MARK: - Equatable
