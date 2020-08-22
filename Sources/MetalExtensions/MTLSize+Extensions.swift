@@ -10,8 +10,8 @@ import Metal
 import CoreGraphics
 
 public extension MTLSize {
-    init(_ size: (Int, Int)) {
-        self.init(width: size.0, height: size.1, depth: 1)
+    init(_ width: Int, _ height: Int) {
+        self.init(width: width, height: height, depth: 1)
     }
     
     var isEmpty: Bool {

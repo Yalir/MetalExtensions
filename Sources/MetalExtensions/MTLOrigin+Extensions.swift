@@ -10,8 +10,8 @@ import Metal
 import CoreGraphics
 
 public extension MTLOrigin {
-    init(_ origin: (Int, Int)) {
-        self.init(x: origin.0, y: origin.1, z: 0)
+    init(_ x: Int, _ y: Int) {
+        self.init(x: x, y: y, z: 0)
     }
     
     init(_ size: MTLSize) {
