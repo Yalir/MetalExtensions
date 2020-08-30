@@ -14,6 +14,10 @@ public extension MTLSize {
         self.init(width: width, height: height, depth: 1)
     }
     
+    init(size: Int) {
+        self.init(size, size)
+    }
+    
     var isEmpty: Bool {
         return width <= 0 || height <= 0 || depth <= 0
     }
