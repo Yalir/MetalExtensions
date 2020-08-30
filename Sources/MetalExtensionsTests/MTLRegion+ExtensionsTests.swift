@@ -168,4 +168,84 @@ class MTLRegion_ExtensionsTests: XCTestCase {
             MTLRegion((1066, 912), (312, 21))
         ], MTLRegion((1066, 400), (312, 533)).split(by: MTLSize(512, 512)))
     }
+    
+    func testRemovingVerticalStrip() {
+        // Remove all
+        XCTAssertEqual([], MTLRegion((0, 0), (10, 10))
+            .removingVerticalStrip(MTLRegion((0, 0), (10, 10))))
+        
+        // Remove right part
+        XCTAssertEqual([MTLRegion((0, 0), (5, 10))],
+                       MTLRegion((0, 0), (10, 10))
+            .removingVerticalStrip(MTLRegion((5, 0), (10, 10))))
+        
+        // Remove middle
+        XCTAssertEqual([MTLRegion((0, 0), (5, 10)), MTLRegion((8, 0), (2, 10))],
+                       MTLRegion((0, 0), (10, 10))
+            .removingVerticalStrip(MTLRegion((5, 0), (3, 10))))
+        
+        // Remove left part
+        XCTAssertEqual([MTLRegion((3, 0), (7, 10))],
+                       MTLRegion((0, 0), (10, 10))
+            .removingVerticalStrip(MTLRegion((0, 0), (3, 10))))
+        
+        // Remove none
+        XCTAssertEqual([MTLRegion((0, 0), (10, 10))],
+                       MTLRegion((0, 0), (10, 10))
+            .removingVerticalStrip(MTLRegion((10, 0), (3, 10))))
+    }
+    
+    func testRemovingHorizontalStrip() {
+        // Remove all
+        XCTAssertEqual([], MTLRegion((0, 0), (10, 10))
+            .removingHorizontalStrip(MTLRegion((0, 0), (10, 10))))
+        
+        // Remove bottom part
+        XCTAssertEqual([MTLRegion((0, 5), (10, 5))],
+                       MTLRegion((0, 0), (10, 10))
+            .removingHorizontalStrip(MTLRegion((0, 0), (10, 5))))
+        
+        // Remove middle
+        XCTAssertEqual([MTLRegion((0, 0), (10, 5)), MTLRegion((0, 8), (10, 2))],
+                       MTLRegion((0, 0), (10, 10))
+            .removingHorizontalStrip(MTLRegion((0, 5), (10, 3))))
+        
+        // Remove top part
+        XCTAssertEqual([MTLRegion((0, 0), (10, 7))],
+                       MTLRegion((0, 0), (10, 10))
+            .removingHorizontalStrip(MTLRegion((0, 7), (10, 3))))
+        
+        // Remove none
+        XCTAssertEqual([MTLRegion((0, 0), (10, 10))],
+                       MTLRegion((0, 0), (10, 10))
+            .removingHorizontalStrip(MTLRegion((0, 10), (10, 3))))
+    }
+    
+    func testRemovingHorizontalAndVerticalStrips_realCase() {
+        let region = MTLRegion((0, 0), (1024, 1024))
+        
+        let verticalStrips = [
+            MTLRegion((0, 0), (192, 1024)),
+            MTLRegion((864, 0), (160, 1024))
+        ]
+        
+        let horizontalStrips = [
+            MTLRegion((0, 0), (1024, 64)),
+            MTLRegion((0, 480), (1024, 64)),
+            MTLRegion((0, 896), (1024, 128))
+        ]
+        
+        XCTAssertEqual([MTLRegion((192, 64), (672, 416)),
+                        MTLRegion((192, 544), (672, 352))],
+                       region.removing(verticalStrips: verticalStrips,
+                                       horizontalStrips: horizontalStrips))
+    }
+    
+    func testRemovingHorizontalAndVerticalStrips_nothingToRemove() {
+        let region = MTLRegion((0, 0), (1024, 1024))
+        
+        XCTAssertEqual([region],
+                       region.removing(verticalStrips: [],
+                                       horizontalStrips: []))
+    }
 }

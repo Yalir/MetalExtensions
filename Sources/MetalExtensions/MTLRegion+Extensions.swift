@@ -27,7 +27,11 @@ public extension MTLRegion {
 // MARK: - Core Graphics helpers
 public extension MTLRegion {
     init(_ size: CGSize) {
-        self.init(origin: .zero, size: MTLSize(size))
+        self.init(MTLSize(size))
+    }
+    
+    init(_ size: MTLSize) {
+        self.init(origin: .zero, size: size)
     }
     
     init(_ rect: CGRect) {
@@ -91,6 +95,97 @@ public extension MTLRegion {
         guard f3 < d3 else { return nil }
         
         return MTLRegion((l3, b3, f3), (r3 - l3, t3 - b3, d3 - f3))
+    }
+    
+    func removingVerticalStrip(_ strip: MTLRegion) -> [MTLRegion] {
+        precondition(strip.bottom <= self.bottom)
+        precondition(strip.top >= self.top)
+        
+        guard let intersection = self.intersection(strip) else {
+            return [self]
+        }
+        
+        var outputRegions = [MTLRegion]()
+        if intersection.left > self.left {
+            // Region has a part left on left
+            let leftSize = MTLSize(intersection.left - self.left,
+                                   self.size.height)
+            let leftRegion = MTLRegion(origin: self.origin,
+                                       size: leftSize)
+            outputRegions.append(leftRegion)
+        }
+        
+        if intersection.right < self.right {
+            // Region has a part left on right
+            let rightSize = MTLSize(self.right - intersection.right,
+                                    self.size.height)
+            let rightRegion = MTLRegion(origin: self.origin
+                .translated(by: (intersection.right - self.left, 0)),
+                                        size: rightSize)
+            outputRegions.append(rightRegion)
+        }
+        
+        // May be empty if the strip to remove fully covers the current region
+        return outputRegions
+    }
+    
+    func removingHorizontalStrip(_ strip: MTLRegion) -> [MTLRegion] {
+        precondition(strip.left <= self.left)
+        precondition(strip.right >= self.right)
+        
+        guard let intersection = self.intersection(strip) else {
+            return [self]
+        }
+        
+        var outputRegions = [MTLRegion]()
+        if intersection.bottom > self.bottom {
+            // Region has a part left on bottom
+            let bottomSize = MTLSize(self.size.width,
+                                     intersection.bottom - self.bottom)
+            let bottomRegion = MTLRegion(origin: self.origin,
+                                         size: bottomSize)
+            outputRegions.append(bottomRegion)
+        }
+        
+        if intersection.top < self.top {
+            // Region has a part left on top
+            let topSize = MTLSize(self.size.width,
+                                  self.top - intersection.top)
+            let topRegion = MTLRegion(origin: self.origin
+                .translated(by: (0, intersection.top - self.bottom)),
+                                      size: topSize)
+            outputRegions.append(topRegion)
+        }
+        
+        // May be empty if the strip to remove fully covers the current region
+        return outputRegions
+    }
+    
+    func removing(verticalStrips: [MTLRegion],
+                  horizontalStrips: [MTLRegion]) -> [MTLRegion] {
+        var extractedRegions = [self]
+        
+        for regionToRemove in verticalStrips {
+            var locallyExtractedRegions = [MTLRegion]()
+            
+            for regionToCut in extractedRegions {
+                locallyExtractedRegions += regionToCut.removingVerticalStrip(regionToRemove)
+            }
+            
+            extractedRegions = locallyExtractedRegions
+        }
+        
+        for regionToRemove in horizontalStrips {
+            var locallyExtractedRegions = [MTLRegion]()
+            
+            for regionToCut in extractedRegions {
+                locallyExtractedRegions += regionToCut.removingHorizontalStrip(regionToRemove)
+            }
+            
+            extractedRegions = locallyExtractedRegions
+        }
+        
+        return extractedRegions
     }
     
     var isEmpty: Bool {
