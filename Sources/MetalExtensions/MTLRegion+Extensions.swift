@@ -245,6 +245,50 @@ public extension MTLRegion {
     }
 }
 
+public extension Array where Element == MTLRegion {
+    var mergingAdjacentVerticalStrips: [MTLRegion] {
+        var merged = [MTLRegion]()
+        for strip in self {
+            guard !merged.isEmpty else {
+                merged.append(strip)
+                continue
+            }
+            
+            let last = merged.last!
+            if last.right == strip.left {
+                precondition(last.bottom == strip.bottom)
+                precondition(last.top == strip.top)
+                let new = merged.last!.union(strip)
+                merged[merged.endIndex-1] = new
+            } else {
+                merged.append(strip)
+            }
+        }
+        return merged
+    }
+    
+    var mergingAdjacentHorizontalStrips: [MTLRegion] {
+        var merged = [MTLRegion]()
+        for strip in self {
+            guard !merged.isEmpty else {
+                merged.append(strip)
+                continue
+            }
+            
+            let last = merged.last!
+            if last.top == strip.bottom {
+                precondition(last.left == strip.left)
+                precondition(last.right == strip.right)
+                let new = merged.last!.union(strip)
+                merged[merged.endIndex-1] = new
+            } else {
+                merged.append(strip)
+            }
+        }
+        return merged
+    }
+}
+
 // MARK: - Equatable
 extension MTLRegion: Equatable {
     public static func == (lhs: MTLRegion, rhs: MTLRegion) -> Bool {
