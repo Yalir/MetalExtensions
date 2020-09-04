@@ -204,6 +204,10 @@ public extension MTLRegion {
         inflated(by: MTLVector(dx: offset.0, dy: offset.1, dz: 0))
     }
     
+    func inflated(by offset: Int) -> MTLRegion {
+        inflated(by: (offset, offset))
+    }
+    
     func deflated(by offset: MTLVector) -> MTLRegion {
         MTLRegion(origin: origin.translated(by: offset),
                   size: size.deflated(by: 2 * offset))

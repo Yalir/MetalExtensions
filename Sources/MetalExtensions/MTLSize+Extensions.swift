@@ -38,6 +38,10 @@ public extension MTLSize {
         inflated(by: MTLVector(dx: offset.0, dy: offset.1, dz: 0))
     }
     
+    func inflated(by offset: Int) -> MTLSize {
+        inflated(by: (offset, offset))
+    }
+    
     func deflated(by offset: MTLVector) -> MTLSize {
         MTLSize(width: width - offset.dx, height: height - offset.dy, depth: depth - offset.dz)
     }
