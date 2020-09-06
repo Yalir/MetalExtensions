@@ -9,17 +9,16 @@
 import Metal
 
 public extension MTLComputeCommandEncoder {
-    func dispatchThreadgroupsForWorkingOn(_ texture: MTLTexture, threadExecutionWidth: Int = 16) {
-        let size = MTLSize(width: texture.width, height: texture.height, depth: 1)
-        dispatchThreadgroupsForWorkingOn(size, threadExecutionWidth: threadExecutionWidth)
+    func dispatchThreadgroupsForWorkingOn(_ texture: MTLTexture,
+                                          with state: MTLComputePipelineState) {
+        dispatchThreadgroupsForWorkingOn(texture.size, with: state)
     }
     
-    func dispatchThreadgroupsForWorkingOn(_ size: MTLSize, threadExecutionWidth: Int = 16) {
-        let threadGroupSize = MTLSize(width: 1, height: threadExecutionWidth, depth: 1)
-        let threadGroupCount = MTLSize(
-            width: (size.width + threadGroupSize.width - 1) / threadGroupSize.width,
-            height: (size.height + threadGroupSize.height - 1) / threadGroupSize.height,
-            depth: 1)
-        dispatchThreadgroups(threadGroupCount, threadsPerThreadgroup: threadGroupSize)
+    func dispatchThreadgroupsForWorkingOn(_ size: MTLSize,
+                                          with state: MTLComputePipelineState) {
+        let w = state.threadExecutionWidth
+        let h = state.maxTotalThreadsPerThreadgroup / w
+        let threadsPerThreadgroup = MTLSizeMake(w, h, 1)
+        dispatchThreads(size, threadsPerThreadgroup: threadsPerThreadgroup)
     }
 }
