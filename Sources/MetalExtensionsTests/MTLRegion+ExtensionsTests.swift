@@ -248,44 +248,4 @@ class MTLRegion_ExtensionsTests: XCTestCase {
                        region.removing(verticalStrips: [],
                                        horizontalStrips: []))
     }
-    
-    func testMergingAdjacentVerticalStrips() {
-        // Unordered and adjacent => not merged
-        let r1 = MTLRegion((1, 2), (3, 4))
-        let r2 = MTLRegion((-2, 2), (3, 4))
-        XCTAssertEqual(r2.right, r1.left)
-        XCTAssertEqual([r1, r2], [r1, r2].mergingAdjacentVerticalStrips)
-        
-        // Ordered and non adjacent => not merged
-        let r3 = MTLRegion((1, 2), (3, 4))
-        let r4 = MTLRegion((5, 2), (3, 4))
-        XCTAssertNotEqual(r3.right, r4.left)
-        XCTAssertEqual([r3, r4], [r3, r4].mergingAdjacentVerticalStrips)
-        
-        // Ordered and adjacent => merged
-        let r5 = MTLRegion((1, 2), (3, 4))
-        let r6 = MTLRegion((4, 2), (3, 4))
-        XCTAssertEqual(r5.right, r6.left)
-        XCTAssertEqual([r5.union(r6)], [r5, r6].mergingAdjacentVerticalStrips)
-    }
-    
-    func testMergingAdjacentHorizontalStrips() {
-        // Unordered and adjacent => not merged
-        let r1 = MTLRegion((1, 2), (3, 4))
-        let r2 = MTLRegion((1, -2), (3, 4))
-        XCTAssertEqual(r2.top, r1.bottom)
-        XCTAssertEqual([r1, r2], [r1, r2].mergingAdjacentHorizontalStrips)
-        
-        // Ordered and non adjacent => not merged
-        let r3 = MTLRegion((1, 2), (3, 4))
-        let r4 = MTLRegion((1, 7), (3, 4))
-        XCTAssertNotEqual(r3.top, r4.bottom)
-        XCTAssertEqual([r3, r4], [r3, r4].mergingAdjacentHorizontalStrips)
-        
-        // Ordered and adjacent => merged
-        let r5 = MTLRegion((1, 2), (3, 4))
-        let r6 = MTLRegion((1, 6), (3, 4))
-        XCTAssertEqual(r5.top, r6.bottom)
-        XCTAssertEqual([r5.union(r6)], [r5, r6].mergingAdjacentHorizontalStrips)
-    }
 }
