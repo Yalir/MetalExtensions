@@ -16,19 +16,19 @@ class MTLRegion_ExtensionsTests: XCTestCase {
     
     func testEmptyRegionIncludingNewRegion_returnsNewRegion() {
         let region = MTLRegion(origin: MTLOrigin(x: 1, y: 2, z: 3),
-                                  size: MTLSize(width: 4, height: 5, depth: 6))
+                               size: MTLSize(width: 4, height: 5, depth: 6))
         XCTAssertEqual(region, MTLRegion().union(region))
     }
     
     func testRegionIncludingEmptyRegion_returnsOriginalRegion() {
         let region = MTLRegion(origin: MTLOrigin(x: 1, y: 2, z: 3),
-                                  size: MTLSize(width: 4, height: 5, depth: 6))
+                               size: MTLSize(width: 4, height: 5, depth: 6))
         XCTAssertEqual(region, region.union(MTLRegion()))
     }
     
     func testRegionIncludingOverlappingRegion_returnsExtendedRegion() {
         let r1 = MTLRegion(origin: MTLOrigin(x: 1, y: 2, z: 3),
-                               size: MTLSize(width: 4, height: 5, depth: 6))
+                           size: MTLSize(width: 4, height: 5, depth: 6))
         let r2 = MTLRegion(origin: MTLOrigin(x: 2, y: -3, z: 4),
                            size: MTLSize(width: 7, height: 8, depth: 9))
         let r3 = MTLRegion(origin: MTLOrigin(x: 1, y: -3, z: 3),

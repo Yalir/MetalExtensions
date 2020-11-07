@@ -19,15 +19,15 @@ public extension MTLSize {
     }
     
     var isEmpty: Bool {
-        return width <= 0 || height <= 0 || depth <= 0
+        width <= 0 || height <= 0 || depth <= 0
     }
     
     var surface: Int {
-        return width * height
+        width * height
     }
     
     func contains(_ other: MTLSize) -> Bool {
-        return width >= other.width && height >= other.height && depth >= other.depth
+        width >= other.width && height >= other.height && depth >= other.depth
     }
     
     func inflated(by offset: MTLVector) -> MTLSize {
@@ -57,9 +57,9 @@ public extension MTLSize {
     }
     
     static func / (lhs: MTLSize, rhs: Int) -> MTLSize {
-        return MTLSize(width: lhs.width / rhs,
-                       height: lhs.height / rhs,
-                       depth: lhs.depth / rhs)
+        MTLSize(width: lhs.width / rhs,
+                height: lhs.height / rhs,
+                depth: lhs.depth / rhs)
     }
 }
 
@@ -77,7 +77,7 @@ public extension MTLSize {
 // MARK: - Equatable
 extension MTLSize: Equatable {
     public static func == (lhs: MTLSize, rhs: MTLSize) -> Bool {
-        return lhs.width == rhs.width &&
+        lhs.width == rhs.width &&
             lhs.height == rhs.height &&
             lhs.depth == rhs.depth
     }

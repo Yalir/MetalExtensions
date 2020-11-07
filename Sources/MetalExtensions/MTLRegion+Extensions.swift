@@ -62,11 +62,11 @@ public extension MTLRegion {
     }
     
     func contains(_ other: MTLRegion) -> Bool {
-        return intersection(other) == other
+        intersection(other) == other
     }
     
     func intersects(_ other: MTLRegion) -> Bool {
-        return intersection(other) != nil
+        intersection(other) != nil
     }
     
     func intersection(_ other: MTLRegion) -> MTLRegion? {
@@ -188,9 +188,7 @@ public extension MTLRegion {
         return extractedRegions
     }
     
-    var isEmpty: Bool {
-        return size.isEmpty
-    }
+    var isEmpty: Bool { size.isEmpty }
     
     func translated(by offset: MTLVector) -> MTLRegion {
         MTLRegion(origin: origin.translated(by: offset), size: size)
@@ -252,7 +250,7 @@ public extension MTLRegion {
 // MARK: - Equatable
 extension MTLRegion: Equatable {
     public static func == (lhs: MTLRegion, rhs: MTLRegion) -> Bool {
-        return lhs.origin == rhs.origin && lhs.size == rhs.size
+        lhs.origin == rhs.origin && lhs.size == rhs.size
     }
 }
 
@@ -288,6 +286,6 @@ extension MTLRegion: Codable {
 // MARK: - CustomStringConvertible
 extension MTLRegion: CustomStringConvertible {
     public var description: String {
-        return "{\(origin), \(size)}"
+        "{\(origin), \(size)}"
     }
 }

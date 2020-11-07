@@ -23,9 +23,9 @@ public extension MTLOrigin {
     }
     
     static func - (lhs: MTLOrigin, rhs: MTLOrigin) -> MTLVector {
-        return MTLVector(dx: lhs.x - rhs.x,
-                         dy: lhs.y - rhs.y,
-                         dz: lhs.z - rhs.z)
+        MTLVector(dx: lhs.x - rhs.x,
+                  dy: lhs.y - rhs.y,
+                  dz: lhs.z - rhs.z)
     }
     
     static func += (lhs: inout MTLOrigin, rhs: MTLVector) {
@@ -63,7 +63,7 @@ public extension MTLOrigin {
 // MARK: - Equatable
 extension MTLOrigin: Equatable {
     public static func == (lhs: MTLOrigin, rhs: MTLOrigin) -> Bool {
-        return lhs.x == rhs.x &&
+        lhs.x == rhs.x &&
             lhs.y == rhs.y &&
             lhs.z == rhs.z
     }

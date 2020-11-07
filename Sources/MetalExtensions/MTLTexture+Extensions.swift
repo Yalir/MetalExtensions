@@ -10,14 +10,14 @@ import Metal
 
 public extension MTLTexture {
     var size: MTLSize {
-        return MTLSize(width: width, height: height, depth: depth)
+        MTLSize(width: width, height: height, depth: depth)
     }
 }
 
 // MARK: - Equatable
 public extension MTLTexture {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.hash == rhs.hash
+        lhs.hash == rhs.hash
     }
 }
 
