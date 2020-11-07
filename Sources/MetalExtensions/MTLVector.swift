@@ -43,24 +43,24 @@ public struct MTLVector: Equatable {
         CGFloat(dx*dx + dy*dy + dz*dz).squareRoot()
     }
     
-    static public prefix func -(vec: MTLVector) -> MTLVector {
+    static public prefix func - (vec: MTLVector) -> MTLVector {
         MTLVector(dx: -vec.dx, dy: -vec.dy, dz: -vec.dz)
     }
     
-    static public func +(lhs: MTLVector, rhs: MTLVector) -> MTLVector {
+    static public func + (lhs: MTLVector, rhs: MTLVector) -> MTLVector {
         MTLVector(dx: lhs.dx + rhs.dx, dy: lhs.dy + rhs.dy, dz: lhs.dz + rhs.dz)
     }
     
-    static public func +=(lhs: inout MTLVector, rhs: MTLVector) {
-        lhs = lhs + rhs
+    static public func += (lhs: inout MTLVector, rhs: MTLVector) {
+        lhs = lhs + rhs // swiftlint:disable:this shorthand_operator
     }
     
-    static public func /(lhs: MTLVector, rhs: Int) -> MTLVector {
+    static public func / (lhs: MTLVector, rhs: Int) -> MTLVector {
         MTLVector(dx: lhs.dx / rhs, dy: lhs.dy / rhs, dz: lhs.dz / rhs)
     }
     
-    static public func *(lhs: MTLVector, rhs: Int) -> MTLVector {
+    static public func * (lhs: MTLVector, rhs: Int) -> MTLVector {
         MTLVector(dx: lhs.dx * rhs, dy: lhs.dy * rhs, dz: lhs.dz * rhs)
     }
-    static public func *(lhs: Int, rhs: MTLVector) -> MTLVector { rhs * lhs }
+    static public func * (lhs: Int, rhs: MTLVector) -> MTLVector { rhs * lhs }
 }

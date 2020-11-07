@@ -22,19 +22,19 @@ public extension MTLOrigin {
         self.init(x: vector.dx, y: vector.dy, z: vector.dz)
     }
     
-    static func -(lhs: MTLOrigin, rhs: MTLOrigin) -> MTLVector {
+    static func - (lhs: MTLOrigin, rhs: MTLOrigin) -> MTLVector {
         return MTLVector(dx: lhs.x - rhs.x,
                          dy: lhs.y - rhs.y,
                          dz: lhs.z - rhs.z)
     }
     
-    static func +=(lhs: inout MTLOrigin, rhs: MTLVector) {
+    static func += (lhs: inout MTLOrigin, rhs: MTLVector) {
         lhs.x += Int(rhs.dx)
         lhs.y += Int(rhs.dy)
         lhs.z += Int(rhs.dz)
     }
     
-    static func +(lhs: MTLOrigin, rhs: MTLVector) -> MTLOrigin {
+    static func + (lhs: MTLOrigin, rhs: MTLVector) -> MTLOrigin {
         MTLOrigin(x: lhs.x + rhs.dx, y: lhs.y + rhs.dy, z: lhs.z + rhs.dz)
     }
     
