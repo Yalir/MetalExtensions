@@ -8,38 +8,6 @@
 
 import Metal
 
-public extension MTLPixelFormat {
-    var bitsPerSample: Int {
-        switch self {
-        case .a8Unorm, .r8Unorm, .r8Snorm, .r8Uint, .r8Sint,
-             .rg8Unorm, .rg8Snorm, .rg8Uint, .rg8Sint,
-             .rgba8Unorm, .rgba8Snorm, .rgba8Uint, .rgba8Sint, .bgra8Unorm,
-             .rgba8Unorm_srgb, .bgra8Unorm_srgb, .stencil8:
-            return 8
-            
-        case .r16Unorm, .r16Snorm, .r16Uint, .r16Sint, .r16Float,
-             .rg16Unorm, .rg16Snorm, .rg16Uint, .rg16Sint, .rg16Float,
-             .rgba16Unorm, .rgba16Snorm, .rgba16Uint, .rgba16Sint, .rgba16Float,
-             .depth16Unorm:
-            return 16
-
-        case .r32Uint, .r32Sint, .r32Float, .rg32Uint, .rg32Sint, .rg32Float,
-             .rgba32Uint, .rgba32Sint, .rgba32Float, .depth32Float:
-            return 32
-
-        case .invalid, .rgb10a2Unorm, .rgb10a2Uint, .bgr10a2Unorm, .rg11b10Float, .rgb9e5Float,
-             .bc1_rgba, .bc1_rgba_srgb, .bc2_rgba, .bc2_rgba_srgb, .bc3_rgba, .bc3_rgba_srgb,
-             .bc4_rUnorm, .bc4_rSnorm, .bc5_rgUnorm, .bc5_rgSnorm, .bc6H_rgbFloat, .bc6H_rgbuFloat,
-             .bc7_rgbaUnorm, .bc7_rgbaUnorm_srgb, .gbgr422, .bgrg422,
-             .depth24Unorm_stencil8, .depth32Float_stencil8, .x32_stencil8, .x24_stencil8:
-            return 0
-
-        @unknown default:
-            fatalError()
-        }
-    }
-}
-
 extension MTLPixelFormat: CustomStringConvertible {
     public var description: String {
         switch self {
@@ -112,6 +80,76 @@ extension MTLPixelFormat: CustomStringConvertible {
         case .depth32Float_stencil8: return "depth32Float_stencil8"
         case .x32_stencil8: return "x32_stencil8"
         case .x24_stencil8: return "x24_stencil8"
+        case .r8Unorm_srgb: return "r8Unorm_srgb"
+        case .rg8Unorm_srgb: return "rg8Unorm_srgb"
+        case .b5g6r5Unorm: return "b5g6r5Unorm"
+        case .a1bgr5Unorm: return "a1bgr5Unorm"
+        case .abgr4Unorm: return "abgr4Unorm"
+        case .bgr5A1Unorm: return "bgr5A1Unorm"
+        case .bgr10_xr: return "bgr10_xr"
+        case .bgr10_xr_srgb: return "bgr10_xr_srgb"
+        case .bgra10_xr: return "bgra10_xr"
+        case .bgra10_xr_srgb: return "bgra10_xr_srgb"
+        case .pvrtc_rgb_2bpp: return "pvrtc_rgb_2bpp"
+        case .pvrtc_rgb_2bpp_srgb: return "pvrtc_rgb_2bpp_srgb"
+        case .pvrtc_rgb_4bpp: return "pvrtc_rgb_4bpp"
+        case .pvrtc_rgb_4bpp_srgb: return "pvrtc_rgb_4bpp_srgb"
+        case .pvrtc_rgba_2bpp: return "pvrtc_rgba_2bpp"
+        case .pvrtc_rgba_2bpp_srgb: return "pvrtc_rgba_2bpp_srgb"
+        case .pvrtc_rgba_4bpp: return "pvrtc_rgba_4bpp"
+        case .pvrtc_rgba_4bpp_srgb: return "pvrtc_rgba_4bpp_srgb"
+        case .eac_r11Unorm: return "eac_r11Unorm"
+        case .eac_r11Snorm: return "eac_r11Snorm"
+        case .eac_rg11Unorm: return "eac_rg11Unorm"
+        case .eac_rg11Snorm: return "eac_rg11Snorm"
+        case .eac_rgba8: return "eac_rgba8"
+        case .eac_rgba8_srgb: return "eac_rgba8_srgb"
+        case .etc2_rgb8: return "etc2_rgb8"
+        case .etc2_rgb8_srgb: return "etc2_rgb8_srgb"
+        case .etc2_rgb8a1: return "etc2_rgb8a1"
+        case .etc2_rgb8a1_srgb: return "etc2_rgb8a1_srgb"
+        case .astc_4x4_srgb: return "astc_4x4_srgb"
+        case .astc_5x4_srgb: return "astc_5x4_srgb"
+        case .astc_5x5_srgb: return "astc_5x5_srgb"
+        case .astc_6x5_srgb: return "astc_6x5_srgb"
+        case .astc_6x6_srgb: return "astc_6x6_srgb"
+        case .astc_8x5_srgb: return "astc_8x5_srgb"
+        case .astc_8x6_srgb: return "astc_8x6_srgb"
+        case .astc_8x8_srgb: return "astc_8x8_srgb"
+        case .astc_10x5_srgb: return "astc_10x5_srgb"
+        case .astc_10x6_srgb: return "astc_10x6_srgb"
+        case .astc_10x8_srgb: return "astc_10x8_srgb"
+        case .astc_10x10_srgb: return "astc_10x10_srgb"
+        case .astc_12x10_srgb: return "astc_12x10_srgb"
+        case .astc_12x12_srgb: return "astc_12x12_srgb"
+        case .astc_4x4_ldr: return "astc_4x4_ldr"
+        case .astc_5x4_ldr: return "astc_5x4_ldr"
+        case .astc_5x5_ldr: return "astc_5x5_ldr"
+        case .astc_6x5_ldr: return "astc_6x5_ldr"
+        case .astc_6x6_ldr: return "astc_6x6_ldr"
+        case .astc_8x5_ldr: return "astc_8x5_ldr"
+        case .astc_8x6_ldr: return "astc_8x6_ldr"
+        case .astc_8x8_ldr: return "astc_8x8_ldr"
+        case .astc_10x5_ldr: return "astc_10x5_ldr"
+        case .astc_10x6_ldr: return "astc_10x6_ldr"
+        case .astc_10x8_ldr: return "astc_10x8_ldr"
+        case .astc_10x10_ldr: return "astc_10x10_ldr"
+        case .astc_12x10_ldr: return "astc_12x10_ldr"
+        case .astc_12x12_ldr: return "astc_12x12_ldr"
+        case .astc_4x4_hdr: return "astc_4x4_hdr"
+        case .astc_5x4_hdr: return "astc_5x4_hdr"
+        case .astc_5x5_hdr: return "astc_5x5_hdr"
+        case .astc_6x5_hdr: return "astc_6x5_hdr"
+        case .astc_6x6_hdr: return "astc_6x6_hdr"
+        case .astc_8x5_hdr: return "astc_8x5_hdr"
+        case .astc_8x6_hdr: return "astc_8x6_hdr"
+        case .astc_8x8_hdr: return "astc_8x8_hdr"
+        case .astc_10x5_hdr: return "astc_10x5_hdr"
+        case .astc_10x6_hdr: return "astc_10x6_hdr"
+        case .astc_10x8_hdr: return "astc_10x8_hdr"
+        case .astc_10x10_hdr: return "astc_10x10_hdr"
+        case .astc_12x10_hdr: return "astc_12x10_hdr"
+        case .astc_12x12_hdr: return "astc_12x12_hdr"
         @unknown default: fatalError()
         }
     }
