@@ -28,6 +28,10 @@ public extension MTLOrigin {
                   dz: lhs.z - rhs.z)
     }
     
+    static prefix func - (v: MTLOrigin) -> MTLOrigin {
+        MTLOrigin(x: -v.x, y: -v.y, z: -v.z)
+    }
+    
     static func += (lhs: inout MTLOrigin, rhs: MTLVector) {
         lhs.x += Int(rhs.dx)
         lhs.y += Int(rhs.dy)
