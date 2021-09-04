@@ -3,7 +3,7 @@
 //  MetalExtensions
 //
 //  Created by Ceylo on 22/06/2019.
-//  Copyright © 2019 Yalir. This code is licensed under MIT license (see LICENSE for details).
+//  Copyright © 2019-2021 Yalir. This code is licensed under MIT license (see LICENSE for details).
 //
 
 import Metal
